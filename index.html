@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário e Tabela de Dados</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid rgb(0, 0, 0);
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #c0e7ee;
+        }
+    </style>
+</head>
+<body>
+    <h2>Formulário de Dados</h2>
+    <form id="dadosForm">
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" required><br>
+
+        <label for="matricula">Matrícula:</label><br>
+        <input type="text" id="matricula" name="matricula" required><br>
+
+        <label for="nota1">Nota 1:</label><br>
+        <input type="number" id="nota1" name="nota1" min="0" max="10" required><br>
+
+        <label for="nota2">Nota 2:</label><br>
+        <input type="number" id="nota2" name="nota2" min="0" max="10" required><br>
+
+        <input type="submit" value="Enviar">
+    </form>
+
+    <h2>Tabela de Dados</h2>
+    <table id="tabelaDados">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Matrícula</th>
+                <th>Nota 1</th>
+                <th>Nota 2</th>
+                <th>Média</th>
+                <th>Situação</th>
+            </tr>
+        </thead>
+        <tbody id="corpoTabela">
+            <!-- Os dados do formulário serão adicionados aqui dinamicamente -->
+        </tbody>
+    </table>
+
+    <script>
+        function enviarDados() {
+            // Captura dos valores do formulário
+            var nome = document.getElementById('nome').value;
+            var matricula = document.getElementById('matricula').value;
+            var nota1 = parseFloat(document.getElementById('nota1').value);
+            var nota2 = parseFloat(document.getElementById('nota2').value);
+
+            // Cálculo da média
+            var media = (nota1 + nota2) / 2;
+
+            // Determinação da situação
+            var situacao = (media >= 5) ? 'Aprovado' : 'Reprovado';
+
+            // Criação de uma nova linha na tabela
+            var tabela = document.getElementById('corpoTabela');
+            var novaLinha = tabela.insertRow();
+
+            // Adiciona as células com os dados do formulário e a média
+            var celulaNome = novaLinha.insertCell(0);
+            var celulaMatricula = novaLinha.insertCell(1);
+            var celulaNota1 = novaLinha.insertCell(2);
+            var celulaNota2 = novaLinha.insertCell(3);
+            var celulaMedia = novaLinha.insertCell(4);
+            var celulaSituacao = novaLinha.insertCell(5);
+
+            // Preenche as células com os dados capturados do formulário
+            celulaNome.innerHTML = nome;
+            celulaMatricula.innerHTML = matricula;
+            celulaNota1.innerHTML = nota1;
+            celulaNota2.innerHTML = nota2;
+            celulaMedia.innerHTML = media.toFixed(2); // A média será mostrada com duas casas decimais
+            celulaSituacao.innerHTML = situacao;
+        }
+    </script>
+</body>
+</html>
